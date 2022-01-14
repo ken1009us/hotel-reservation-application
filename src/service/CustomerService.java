@@ -12,13 +12,24 @@ import java.util.Map;
  */
 public class CustomerService {
 
-    private final Map<String, Customer> customers = new HashMap<>();
+    // provide a static reference
+    private static CustomerService INSTANCE;
 
-    public void addCustomer(String email, String firstName, String lastName) {
+    private static Map<String, Customer> customers = new HashMap<>();
+
+    // provide a static reference
+    public static CustomerService getInstance() {
+        if (INSTANCE == null){
+            INSTANCE = new CustomerService();
+        }
+        return INSTANCE;
+    }
+
+    public void addCustomer(final String email, final String firstName, final String lastName) {
         customers.put(email, new Customer(firstName, lastName, email));
     }
 
-    public Customer getCustomer(String customerEmail) {
+    public Customer getCustomer(final String customerEmail) {
         return customers.get(customerEmail);
     }
 

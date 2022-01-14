@@ -18,10 +18,21 @@ import java.util.stream.Collectors;
  */
 public class ReservationService {
 
+    // provide a static reference
+    private static ReservationService INSTANCE;
+
     private static final int PLUS_DAYS = 10;
 
     private final Map<String, IRoom> rooms = new HashMap<>();
     private final Map<String, Collection<Reservation>> reservations = new HashMap<>();
+
+    // provide a static reference
+    public static ReservationService getInstance() {
+        if (INSTANCE == null){
+            INSTANCE = new ReservationService();
+        }
+        return INSTANCE;
+    }
 
     public void addRoom(final IRoom room) {
         rooms.put(room.getRoomNumber(), room);
@@ -29,7 +40,6 @@ public class ReservationService {
 
     public IRoom getARoom(final String roomId) {
         return rooms.get(roomId);
-
     }
 
     public Reservation reserveARoom(final Customer customer, final IRoom room, final Date checkInDate, final Date checkOutDate) {

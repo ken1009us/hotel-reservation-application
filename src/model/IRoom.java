@@ -1,7 +1,10 @@
 package model;
 
+import model.RoomType;
+
 /**
- * interface IRoom
+ * @author Ken Wu
+ *
  */
 public interface IRoom {
     public String getRoomNumber();

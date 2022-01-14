@@ -1,16 +1,17 @@
+package model;
+
+import java.util.Objects;
+
 /**
  * @author Ken Wu
  *
  */
-
-package model;
-
 public class Room implements IRoom{
-    public String roomNumber;
-    public Double price;
-    public RoomType enumeration;
+    private final String roomNumber;
+    private final Double price;
+    private final RoomType enumeration;
 
-    public Room (String roomNumber, Double price, RoomType enumeration) {
+    public Room (final String roomNumber, final Double price, final RoomType enumeration) {
         this.roomNumber = roomNumber;
         this.price = price;
         this.enumeration = enumeration;
@@ -29,15 +30,25 @@ public class Room implements IRoom{
     }
 
     public boolean isFree() {
-        if (price == 0) {
-            return true;
-        }else {
-            return false;
-        }
+        return this.price != null && this.price.equals(0.0);
     }
 
     @Override
-    public String toString() {
-        return "Room Number: " + roomNumber + ", " + enumeration + " bed, Room price: $" + price;
+    public boolean equals(Object obj) {
+        if(obj == this) {
+            return true;
+        }
+
+        if(!(obj instanceof Room)) {
+            return false;
+        }
+
+        final Room room = (Room) obj;
+        return Objects.equals(this.roomNumber, room.roomNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(roomNumber);
     }
 }

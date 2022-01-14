@@ -2,15 +2,20 @@ package model;
 
 import java.util.regex.Pattern;
 
+/**
+ * @author Ken Wu
+ *
+ */
 public class Customer {
 
-    public String firstName;
-    public String lastName;
-    public String email;
-    public String emailRegex = "^(.+)@(.+).com$";
-    Pattern pattern = Pattern.compile(emailRegex);
+    private final String firstName;
+    private final String lastName;
+    private final String email;
 
-    public Customer(String firstName, String lastName, String email) {
+    private final String emailRegex = "^(.+)@(.+).com$";
+    private Pattern pattern = Pattern.compile(emailRegex);
+
+    public Customer(final String firstName, final String lastName, final String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -22,7 +27,9 @@ public class Customer {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + ", " + email;
+        return "First Name: " + this.firstName
+                + " Last Name: " + this.lastName
+                + " Email: " + this.email;
     }
 
 }

@@ -3,6 +3,7 @@ package service;
 import model.IRoom;
 import model.Reservation;
 import model.Customer;
+import sun.awt.image.ImageWatched;
 
 import java.util.Collection;
 import java.util.Map;
@@ -114,6 +115,10 @@ public class ReservationService {
                 System.out.println(reservation + "\n");
             }
         }
+    }
+
+    public Collection<IRoom> getAllRooms() {
+        return rooms.values();
     }
 
     public Collection<Reservation> getAllReservation() {

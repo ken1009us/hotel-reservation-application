@@ -46,7 +46,7 @@ public class HotelResource {
     public Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate) {
         return reservationService.reserveARoom(customerService.getCustomer(customerEmail), room, checkInDate, checkOutDate);
     }
-//
+
     public Collection<Reservation> getCustomersReservations(String customerEmail) {
         final Customer customer = getCustomer(customerEmail);
 
@@ -57,19 +57,16 @@ public class HotelResource {
 
         return reservationService.getCustomersReservation(customer);
     }
-//
+
     public Collection<IRoom> findARoom(Date checkIn, Date checkOut) {
-        Collection<IRoom> rooms = reservationService.findRooms(checkIn, checkOut);
+        return reservationService.findRooms(checkIn, checkOut);
+    }
 
-        if (rooms == null) {
-            Collection<IRoom> alternativeRooms = reservationService.findAlternativeRooms(checkIn, checkOut);
-            if (alternativeRooms == null) {
-                return null;
-            }
+    public Collection<IRoom> findAlternativeRoom(Date checkIn, Date checkOut) {
+        return reservationService.findAlternativeRooms(checkIn, checkOut);
+    }
 
-            return alternativeRooms;
-        }
-
-        return rooms;
+    public Date addDate(Date date) {
+        return reservationService.addDate(date);
     }
 }

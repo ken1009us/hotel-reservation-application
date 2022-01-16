@@ -34,12 +34,19 @@ public class MainMenu {
                     break;
 
                 }else if (userInput.equals("b")) {
+                    myReservations();
+                    break;
 
                 }else if (userInput.equals("c")) {
+                    createAnAccount();
+                    break;
 
                 }else if (userInput.equals("d")) {
+                    AdminMenu.adminMenu();
+                    break;
 
                 }else if (userInput.equals("e")) {
+                    System.out.println("Exit the application.");
 
                 }else {
                     System.out.println("Invalid action.\n");
@@ -158,6 +165,48 @@ public class MainMenu {
         }
     }
 
+    public static void myReservations() {
+        final Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter your email: ");
+        final String customerEmail = scanner.nextLine();
+
+        printReservations(hotelResource.getCustomersReservations(customerEmail));
+    }
+
+    public static void printReservations(Collection<Reservation> reservations) {
+        if (reservations == null || reservations.isEmpty()) {
+            System.out.println("Sorry, we don't find any reservations.");
+        }else {
+            reservations.forEach(reservation -> System.out.println("\n" + reservation));
+        }
+    }
+
+    public static void createAnAccount() {
+        final Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter your email: ");
+        final String newEmail = scanner.nextLine();
+
+        System.out.println("Please enter your first name: ");
+        final String firstName = scanner.nextLine();
+
+        System.out.println("Please enter your last name: ");
+        final String lastName = scanner.nextLine();
+
+        try {
+            hotelResource.createACustomer(newEmail, firstName, lastName);
+            System.out.println("You successfully created an account.");
+
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getLocalizedMessage());
+            createAnAccount();
+
+        } finally {
+            scanner.close();
+        }
+
+    }
 
 
 }

@@ -28,9 +28,9 @@ public class AdminResource {
         return INSTANCE;
     }
 
-    public Customer getCustomer(String email) {
-        return customerService.getCustomer(email);
-    }
+//    public Customer getCustomer(String email) {
+//        return customerService.getCustomer(email);
+//    }
 
     public void addRoom(List<IRoom> rooms) {
         for (IRoom r : rooms) {

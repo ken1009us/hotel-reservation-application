@@ -34,6 +34,13 @@ public class Room implements IRoom{
     }
 
     @Override
+    public String toString() {
+        return "Room Number: " + this.roomNumber
+                + "\n        Room Price: " + this.price
+                + "\n        Room Type: " + this.enumeration;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(obj == this) {
             return true;

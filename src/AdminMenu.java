@@ -27,23 +27,18 @@ public class AdminMenu {
 
                 if (userInput.equals("a")) {
                     showAllCustomers();
-                    break;
 
                 }else if (userInput.equals("b")) {
                     showAllRooms();
-                    break;
 
                 }else if (userInput.equals("c")) {
                     showAllReservations();
-                    break;
 
                 }else if (userInput.equals("d")) {
                     addARoom();
-                    break;
 
                 }else if (userInput.equals("e")) {
-                    MainMenu.menu();
-                    break;
+                    MainMenu.mainMenu();
                 }else {
                     System.out.println("Invalid action.\n");
                 }
@@ -56,8 +51,8 @@ public class AdminMenu {
     }
 
     public static void menu() {
-        System.out.println("\n Welcome! Admin!\n" +
-                "Please select the number for the next step.\n" +
+        System.out.println("\nWelcome! Admin!\n" +
+                "Please enter a letter for the next step.\n" +
                 "-----------------------------------------------------\n" +
                 "a. See all Customers\n" +
                 "b. See all Rooms\n" +
@@ -72,10 +67,15 @@ public class AdminMenu {
 
         if (customers.isEmpty()) {
             System.out.println("Sorry, we don't find any customers.");
+            adminMenu();
         }else {
-            for (Customer customer : customers) {
-                System.out.println(customer);
-            }
+            // This is wrong way to print the data, since this will print the memory position.
+            // for (Customer customer : customers) {
+            // System.out.println(customer);
+            // }
+
+            adminResource.getAllCustomers().forEach(x -> System.out.println(x));
+            adminMenu();
         }
     }
 
@@ -84,15 +84,16 @@ public class AdminMenu {
 
         if (rooms.isEmpty()) {
             System.out.println("Sorry, we don't find any rooms.");
+            adminMenu();
         }else {
-            for (IRoom room : rooms) {
-                System.out.println(room);
-            }
+            adminResource.getAllRooms().forEach(x -> System.out.println(x));
+            adminMenu();
         }
     }
 
     public static void showAllReservations() {
         adminResource.displayAllReservations();
+        adminMenu();
     }
 
     public static void addARoom() {
@@ -110,6 +111,7 @@ public class AdminMenu {
         Room room = new Room(roomNumber, roomPrice, roomType);
 
         adminResource.addRoom(Collections.singletonList(room));
+        adminMenu();
     }
 
     public static Double parseRoomPrice(Scanner scanner) {

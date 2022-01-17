@@ -19,7 +19,7 @@ public class MainMenu {
     private static final String DATE_PATTERN = "MM/dd/yyyy";
     private static final HotelResource hotelResource = HotelResource.getInstance();
 
-    public static void main(String[] args) {
+    public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
         String userInput;
 
@@ -31,22 +31,19 @@ public class MainMenu {
 
                 if (userInput.equals("a")) {
                     findReserveRoom();
-                    break;
 
                 }else if (userInput.equals("b")) {
                     myReservations();
-                    break;
 
                 }else if (userInput.equals("c")) {
                     createAnAccount();
-                    break;
 
                 }else if (userInput.equals("d")) {
                     AdminMenu.adminMenu();
-                    break;
 
                 }else if (userInput.equals("e")) {
                     System.out.println("Exit the application.");
+                    break;
 
                 }else {
                     System.out.println("Invalid action.\n");
@@ -54,14 +51,12 @@ public class MainMenu {
             } while (userInput.length() != 1 || !userInput.equals("e"));
         } catch (StringIndexOutOfBoundsException ex) {
             System.out.println("Please provide a valid number...");
-        } finally {
-            scanner.close();
         }
     }
 
     public static void menu() {
-        System.out.println("\n Hello! This is a hotel reservation application!\n" +
-                "Please select the number for the next step.\n" +
+        System.out.println("\nHello! This is a hotel reservation application!\n" +
+                "Please enter a letter for the next step.\n" +
                 "-----------------------------------------------------\n" +
                 "a. Find and reserve a room\n" +
                 "b. See my reservations\n" +
@@ -88,12 +83,13 @@ public class MainMenu {
 
                 if (alternativeRoom.isEmpty()) {
                     System.out.println("Sorry, we don't have any rooms for you.");
+                    mainMenu();
                 }else {
                     final Date alterCheckInDate = hotelResource.addDate(checkInDate);
                     final Date alterCheckOutDate = hotelResource.addDate(checkOutDate);
                     System.out.println("We only found the rooms between these dates...\n" +
                             "check-in date: " + alterCheckInDate +
-                            "\n check-out date: " + alterCheckOutDate);
+                            "\ncheck-out date: " + alterCheckOutDate);
 
                     for (IRoom r : alternativeRoom) {
                         System.out.println(r);
@@ -135,7 +131,8 @@ public class MainMenu {
                 final String customerEmail = scanner.nextLine();
 
                 if (hotelResource.getCustomer(customerEmail) == null) {
-                    System.out.println("Error: we can't find the data.\n");
+                    System.out.println("Sorry, we can't find your information.\n");
+                    mainMenu();
                 }else {
                     System.out.println("Which room do you want to book?\n" +
                             "Please provide the room number.");
@@ -148,6 +145,7 @@ public class MainMenu {
                         System.out.println("You successfully booked a room.\n" +
                                 "Thank you!\n");
                         System.out.println(reservation);
+                        mainMenu();
                     }else {
                         System.out.println("We cannot find the room. The room number is invalid.");
                     }
@@ -156,7 +154,7 @@ public class MainMenu {
                 menu();
             }else {
                 System.out.println("Please create an account...");
-                menu();
+                createAnAccount();
             }
         } else if (bookForRoom.equals("n") || bookForRoom.equals("N")) {
             menu();
@@ -177,6 +175,7 @@ public class MainMenu {
     public static void printReservations(Collection<Reservation> reservations) {
         if (reservations == null || reservations.isEmpty()) {
             System.out.println("Sorry, we don't find any reservations.");
+            mainMenu();
         }else {
             reservations.forEach(reservation -> System.out.println("\n" + reservation));
         }
@@ -197,6 +196,7 @@ public class MainMenu {
         try {
             hotelResource.createACustomer(newEmail, firstName, lastName);
             System.out.println("You successfully created an account.");
+            mainMenu();
 
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getLocalizedMessage());

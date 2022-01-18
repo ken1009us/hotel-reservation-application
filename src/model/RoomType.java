@@ -5,20 +5,14 @@ package model;
  *
  */
 public enum RoomType {
-    SINGLE("1"),
-    DOUBLE("2");
+    SINGLE,
+    DOUBLE;
 
-    public final String label;
-
-    private RoomType(String label) {
-        this.label = label;
-    }
-
-    public static RoomType valueOfLabel(String label) {
-        for (RoomType roomType : values()) {
-            if (roomType.label.equals(label)) {
-                return roomType;
-            }
+    public static RoomType roomType(String type) {
+        if (type.equals("SINGLE")) {
+            return RoomType.SINGLE;
+        }else if (type == "DOUBLE") {
+            return RoomType.DOUBLE;
         }
         throw new IllegalArgumentException();
     }

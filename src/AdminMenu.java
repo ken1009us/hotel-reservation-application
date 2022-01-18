@@ -105,12 +105,13 @@ public class AdminMenu {
         System.out.println("Please provide the room price per night: ");
         Double roomPrice = parseRoomPrice(scanner);
 
-        System.out.println("Please provide the room type: \n" + "1 for single bed, 2 for double bed: ");
+        System.out.println("Please provide the room type: \n" + "SINGLE or DOUBLE: ");
         RoomType roomType = parseRoomType(scanner);
 
         Room room = new Room(roomNumber, roomPrice, roomType);
 
         adminResource.addRoom(Collections.singletonList(room));
+        System.out.println("You successfully created a room.");
         adminMenu();
     }
 
@@ -125,7 +126,7 @@ public class AdminMenu {
 
     public static RoomType parseRoomType(Scanner scanner) {
         try {
-            return RoomType.valueOfLabel(scanner.nextLine());
+            return RoomType.roomType(scanner.nextLine());
         } catch (IllegalArgumentException ex) {
             System.out.println("Invalid room type...");
             return parseRoomType(scanner);

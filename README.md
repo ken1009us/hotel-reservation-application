@@ -7,6 +7,14 @@ book a hotel room based on room availability. This project
 demonstrate my abilities to design classes using OOP, 
 organize and process data with collections, and use common Java types.
 
+### Admin Menu
+
+![image](https://github.com/ken1009us/hotel-reservation-application/blob/main/img/mainMenu.png "adminMenu")
+
+### Main Menu
+
+![image](https://github.com/ken1009us/hotel-reservation-application/blob/main/img/adminMenu.png "adminMenu")
+
 ## Main Components of the App
 
 The major components of the Hotel Reservation Application will consist of the following:
